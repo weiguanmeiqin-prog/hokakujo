@@ -6,11 +6,9 @@
 
   <title>夜間感情保護室</title>
 
-  <!-- 検索向け -->
   <meta name="description" content="深夜に行き場を失った感情を一時保管しています。">
   <meta name="keywords" content="夜間感情保護室, 深夜, 感情, 創作, 静かなサイト">
 
-  <!-- SNS埋め込み -->
   <meta property="og:title" content="夜間感情保護室">
   <meta property="og:description" content="眠れない夜のための一時保護施設">
   <meta property="og:type" content="website">
@@ -18,19 +16,25 @@
   <style>
     body {
       margin: 0;
-      background:
-        radial-gradient(circle at top, #1a2230 0%, #0c1016 45%, #06080b 100%);
+      overflow: hidden;
       color: #d8dde3;
       font-family: "Yu Gothic UI", sans-serif;
-      overflow: hidden;
+
+      background:
+        radial-gradient(circle at top,
+        #1a2230 0%,
+        #0c1016 45%,
+        #06080b 100%);
+
+      transition: background 1.5s ease;
     }
 
-    /* 背景ノイズ */
+    /* ノイズ */
     .noise {
       position: fixed;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       opacity: 0.04;
+
       background-image:
         repeating-linear-gradient(
           0deg,
@@ -39,19 +43,57 @@
           transparent 1px,
           transparent 3px
         );
+
       pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 雨 */
+    .rain {
+      position: fixed;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 2;
+
+      background-image:
+        linear-gradient(
+          to bottom,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,0.18) 100%
+        );
+
+      background-size: 2px 80px;
+
+      animation: rainMove 0.35s linear infinite;
+
+      transition: opacity 1s ease;
+    }
+
+    @keyframes rainMove {
+      from {
+        background-position: 0 0;
+      }
+
+      to {
+        background-position: 0 80px;
+      }
     }
 
     .container {
       height: 100vh;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       text-align: center;
+
       padding: 20px;
+
       position: relative;
-      z-index: 1;
+      z-index: 3;
     }
 
     h1 {
@@ -65,7 +107,7 @@
     .subtitle {
       font-size: 0.92rem;
       opacity: 0.68;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
       line-height: 2;
       max-width: 620px;
     }
@@ -73,16 +115,20 @@
     .status {
       font-size: 0.78rem;
       opacity: 0.42;
-      margin-bottom: 38px;
+      margin-bottom: 35px;
       letter-spacing: 0.08em;
     }
 
     .logs {
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
+
       text-align: left;
+
       margin-bottom: 35px;
+
       border-left: 1px solid rgba(255,255,255,0.1);
+
       padding-left: 18px;
     }
 
@@ -102,12 +148,18 @@
 
     .menu a {
       border: 1px solid rgba(255,255,255,0.1);
+
       color: #d8dde3;
       text-decoration: none;
+
       padding: 12px;
+
       transition: 0.3s;
+
       background: rgba(255,255,255,0.03);
+
       backdrop-filter: blur(4px);
+
       font-size: 0.88rem;
     }
 
@@ -118,18 +170,27 @@
 
     .warning {
       margin-top: 34px;
+
       font-size: 0.75rem;
+
       opacity: 0.32;
+
       max-width: 520px;
+
       line-height: 2;
     }
 
     .footer {
       position: absolute;
       bottom: 18px;
+
       font-size: 0.7rem;
+
       opacity: 0.22;
+
       letter-spacing: 0.14em;
+
+      z-index: 3;
     }
   </style>
 </head>
@@ -138,15 +199,17 @@
 
 <div class="noise"></div>
 
+<div class="rain" id="rain"></div>
+
 <div class="container">
 
   <h1>
     夜間感情保護室
   </h1>
 
-  <div class="subtitle">
-    深夜になると、感情は居場所を見失うことがあります。<br>
-    ここでは未整理の孤独や不安を、一時的に保護しています。
+  <div class="subtitle" id="subtitle">
+    ここでは未整理の孤独や不安を、<br>
+    一時的に保護しています。
   </div>
 
   <div class="status" id="statusText">
@@ -167,6 +230,22 @@
       05/07 02:41　名前不明の焦燥を一時収容
     </div>
 
+    <div class="log">
+      05/07 03:12　「眠れなさ」を保護
+    </div>
+
+    <div class="log">
+      05/07 03:47　「深夜の万能感」を確認
+    </div>
+
+    <div class="log">
+      未返却一覧：
+      帰宅拒否感情 /
+      未送信メッセージ由来感情
+    </div>
+
+    <div id="nightLogs"></div>
+
   </div>
 
   <div class="menu">
@@ -185,16 +264,125 @@
 <div class="footer">
   NIGHT EMOTION CARE ROOM
 </div>
+  <script>
 
-<script>
-  const hour = new Date().getHours();
-  const statusText = document.getElementById("statusText");
+/* =========================
+   夜間感情保護室 システム
+========================= */
 
-  if(hour >= 23 || hour <= 4){
-    statusText.textContent = "現在、保護要請が増加しています";
-  } else {
-    statusText.textContent = "現在、静養室を開放中";
+const hour = new Date().getHours();
+
+const statusText = document.getElementById("statusText");
+const subtitle = document.getElementById("subtitle");
+const rain = document.getElementById("rain");
+const nightLogs = document.getElementById("nightLogs");
+
+/* =========================
+   深夜モード
+========================= */
+
+if(hour >= 23 || hour <= 4){
+
+  document.body.style.background =
+    "radial-gradient(circle at top, #111722 0%, #05070a 65%, #020304 100%)";
+
+  statusText.textContent =
+    "現在、保護要請が増加しています";
+
+  subtitle.innerHTML =
+    "深夜になると、感情は居場所を見失うことがあります。<br>現在、静養室を開放しています。";
+
+  rain.style.opacity = "0.12";
+}
+
+/* =========================
+   自動ログ生成
+========================= */
+
+/* 保護対象候補 */
+const emotions = [
+
+  "眠れなさ",
+  "帰りたくなさ",
+  "未送信感情",
+  "名前不明の焦燥",
+  "深夜の万能感",
+  "理由のない不安",
+  "返信できなさ",
+  "雨天由来感情",
+  "孤独感",
+  "未整理感情",
+  "帰宅拒否感情",
+  "存在希薄感",
+  "午前二時の寂しさ",
+  "思考過多状態"
+
+];
+
+/* 行動候補 */
+const actions = [
+
+  "を保護",
+  "を確認",
+  "を一時収容",
+  "の滞留を観測",
+  "を回収",
+  "の再流出を確認"
+
+];
+
+/* ランダム生成 */
+function createLog(){
+
+  const emotion =
+    emotions[Math.floor(Math.random() * emotions.length)];
+
+  const action =
+    actions[Math.floor(Math.random() * actions.length)];
+
+  /* 時刻生成 */
+  const now = new Date();
+
+  const hh =
+    String(now.getHours()).padStart(2, "0");
+
+  const mm =
+    String(now.getMinutes()).padStart(2, "0");
+
+  /* ログ生成 */
+  const log = document.createElement("div");
+
+  log.className = "log";
+
+  log.style.opacity = "0";
+
+  log.style.transition = "1.2s";
+
+  log.innerHTML =
+    `${hh}:${mm}　「${emotion}」${action}`;
+
+  /* 一番上に追加 */
+  nightLogs.prepend(log);
+
+  /* フェード表示 */
+  setTimeout(() => {
+    log.style.opacity = "0.58";
+  }, 50);
+
+  /* ログ増えすぎ防止 */
+  const logs = nightLogs.querySelectorAll(".log");
+
+  if(logs.length > 8){
+    logs[logs.length - 1].remove();
   }
+}
+
+/* 初回生成 */
+createLog();
+
+/* 8秒ごとに追加 */
+setInterval(createLog, 8000);
+
 </script>
 
 </body>
