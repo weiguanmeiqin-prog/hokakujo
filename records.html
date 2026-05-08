@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>施設案内</title>
+
+<meta name="description" content="夜間感情保護室 施設案内">
+
+<style>
+
+body{
+  margin:0;
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(circle at top,
+    #1a2230 0%,
+    #090c11 50%,
+    #040506 100%);
+
+  color:#d8dde3;
+  font-family:"Yu Gothic UI",sans-serif;
+}
+
+/* ノイズ */
+
+.noise{
+  position:fixed;
+  inset:0;
+
+  opacity:0.04;
+
+  pointer-events:none;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.05) 0px,
+      rgba(255,255,255,0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+/* コンテナ */
+
+.container{
+  position:relative;
+  z-index:2;
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:70px 25px;
+}
+
+/* タイトル */
+
+h1{
+  font-weight:500;
+
+  letter-spacing:0.16em;
+
+  margin-bottom:18px;
+}
+
+/* 説明 */
+
+.subtitle{
+  opacity:0.58;
+
+  line-height:2;
+
+  margin-bottom:50px;
+
+  font-size:0.92rem;
+}
+
+/* セクション */
+
+.section{
+  margin-bottom:35px;
+
+  padding:22px;
+
+  background:rgba(255,255,255,0.03);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter:blur(4px);
+
+  transition:0.4s;
+}
+
+.section:hover{
+  background:rgba(255,255,255,0.05);
+
+  transform:translateX(4px);
+}
+
+/* 部屋名 */
+
+.room{
+  font-size:1rem;
+
+  margin-bottom:10px;
+
+  letter-spacing:0.06em;
+
+  opacity:0.9;
+}
+
+/* 詳細 */
+
+.detail{
+  line-height:2;
+
+  opacity:0.58;
+
+  font-size:0.88rem;
+}
+
+/* 状態 */
+
+.status{
+  margin-top:14px;
+
+  font-size:0.74rem;
+
+  opacity:0.3;
+
+  letter-spacing:0.08em;
+}
+
+/* 戻る */
+
+.back{
+  display:inline-block;
+
+  margin-top:40px;
+
+  color:#9fb4c9;
+
+  text-decoration:none;
+
+  opacity:0.7;
+}
+
+.back:hover{
+  opacity:1;
+}
+
+/* フッター */
+
+.footer{
+  position:fixed;
+
+  bottom:18px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  font-size:0.7rem;
+
+  opacity:0.18;
+
+  letter-spacing:0.14em;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<div class="container">
+
+<h1>
+施設案内
+</h1>
+
+<div class="subtitle">
+夜間感情保護室は、深夜帯に行き場を失った感情を<br>
+一時的に保護・保管するための施設です。<br>
+施設内では静かな行動を推奨しています。
+</div>
+
+<!-- 静養室 -->
+
+<div class="section">
+
+  <div class="room">
+    静養室
+  </div>
+
+  <div class="detail">
+    感情整理を目的としない休憩区画。<br>
+    無理に言葉にする必要はありません。<br>
+    長時間滞在可。
+  </div>
+
+  <div class="status">
+    STATUS : 開放中
+  </div>
+
+</div>
+
+<!-- 保管室 -->
+
+<div class="section">
+
+  <div class="room">
+    深夜遺失物保管室
+  </div>
+
+  <div class="detail">
+    長期間返却されなかった感情を保管しています。<br>
+    一部感情は再流出の危険性があります。
+  </div>
+
+  <div class="status">
+    STATUS : 一部封鎖中
+  </div>
+
+</div>
+
+<!-- 記録室 -->
+
+<div class="section">
+
+  <div class="room">
+    保護記録閲覧室
+  </div>
+
+  <div class="detail">
+    過去に保護された感情の一部を閲覧できます。<br>
+    閲覧中に既視感を覚える場合があります。
+  </div>
+
+  <div class="status">
+    STATUS : 閲覧可能
+  </div>
+
+</div>
+
+<!-- 未分類 -->
+
+<div class="section">
+
+  <div class="room">
+    未分類区画
+  </div>
+
+  <div class="detail">
+    名前を持たない感情を一時保管しています。<br>
+    現在も分類作業継続中。
+  </div>
+
+  <div class="status">
+    STATUS : 関係者以外立入禁止
+  </div>
+
+</div>
+
+<a class="back" href="index.html">
+← 保護室へ戻る
+</a>
+
+</div>
+
+<div class="footer">
+NIGHT EMOTION CARE ROOM
+</div>
+
+</body>
+</html>
