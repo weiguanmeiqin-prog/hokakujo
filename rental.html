@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>感情貸与室</title>
+
+<meta name="description" content="夜間感情保護室 感情貸与ページ">
+
+<style>
+
+body{
+  margin:0;
+  overflow-x:hidden;
+
+  background:
+    radial-gradient(circle at top,
+    #18202d 0%,
+    #0a0d12 50%,
+    #040506 100%);
+
+  color:#d8dde3;
+  font-family:"Yu Gothic UI",sans-serif;
+}
+
+/* ノイズ */
+
+.noise{
+  position:fixed;
+  inset:0;
+
+  opacity:0.04;
+
+  pointer-events:none;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.05) 0px,
+      rgba(255,255,255,0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+/* コンテナ */
+
+.container{
+  position:relative;
+  z-index:2;
+
+  max-width:760px;
+
+  margin:auto;
+
+  padding:70px 25px;
+}
+
+/* タイトル */
+
+h1{
+  font-weight:500;
+
+  letter-spacing:0.16em;
+
+  margin-bottom:18px;
+}
+
+/* 説明 */
+
+.subtitle{
+  opacity:0.58;
+
+  line-height:2;
+
+  margin-bottom:45px;
+
+  font-size:0.92rem;
+}
+
+/* 感情リスト */
+
+.rentalList{
+  display:flex;
+  flex-direction:column;
+
+  gap:18px;
+}
+
+/* カード */
+
+.item{
+  background:rgba(255,255,255,0.03);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  padding:20px;
+
+  transition:0.4s;
+
+  backdrop-filter:blur(4px);
+}
+
+.item:hover{
+  background:rgba(255,255,255,0.05);
+
+  transform:translateX(4px);
+}
+
+/* 名前 */
+
+.name{
+  font-size:1rem;
+
+  margin-bottom:10px;
+
+  letter-spacing:0.05em;
+
+  opacity:0.9;
+}
+
+/* 詳細 */
+
+.detail{
+  line-height:1.9;
+
+  opacity:0.56;
+
+  font-size:0.86rem;
+}
+
+/* ステータス */
+
+.status{
+  margin-top:14px;
+
+  font-size:0.74rem;
+
+  opacity:0.34;
+
+  letter-spacing:0.08em;
+}
+
+/* 在庫切れ */
+
+.out{
+  opacity:0.45;
+}
+
+.out .name{
+  text-decoration:line-through;
+}
+
+/* ボタン */
+
+.borrow{
+  margin-top:16px;
+
+  background:rgba(255,255,255,0.04);
+
+  border:1px solid rgba(255,255,255,0.1);
+
+  color:#d8dde3;
+
+  padding:10px 16px;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.borrow:hover{
+  background:rgba(255,255,255,0.08);
+}
+
+/* 戻る */
+
+.back{
+  display:inline-block;
+
+  margin-top:45px;
+
+  color:#9fb4c9;
+
+  text-decoration:none;
+
+  opacity:0.7;
+}
+
+.back:hover{
+  opacity:1;
+}
+
+/* フッター */
+
+.footer{
+  position:fixed;
+
+  bottom:18px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  font-size:0.7rem;
+
+  opacity:0.18;
+
+  letter-spacing:0.14em;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<div class="container">
+
+<h1>
+感情貸与室
+</h1>
+
+<div class="subtitle">
+一時的に不足している感情を貸与しています。<br>
+使用後は自然返却されます。<br>
+長時間使用は推奨されていません。
+</div>
+
+<div class="rentalList">
+
+  <!-- 集中 -->
+
+  <div class="item">
+
+    <div class="name">
+      深夜作業用集中感情
+    </div>
+
+    <div class="detail">
+      深夜帯専用。<br>
+      一時的に集中力を向上させます。<br>
+      日の出後に急激な疲労感が発生する場合があります。
+    </div>
+
+    <div class="status">
+      STATUS : 貸出可能
+    </div>
+
+    <button class="borrow">
+      借用申請
+    </button>
+
+  </div>
+
+  <!-- 自己肯定感 -->
+
+  <div class="item">
+
+    <div class="name">
+      一時的自己肯定感
+    </div>
+
+    <div class="detail">
+      面接・登校・会話前向け。<br>
+      効果には個人差があります。
+    </div>
+
+    <div class="status">
+      STATUS : 残量低下
+    </div>
+
+    <button class="borrow">
+      借用申請
+    </button>
+
+  </div>
+
+  <!-- 孤独感 -->
+
+  <div class="item">
+
+    <div class="name">
+      雨天適応孤独感
+    </div>
+
+    <div class="detail">
+      雨音環境との相性が確認されています。<br>
+      静かな夜間使用推奨。
+    </div>
+
+    <div class="status">
+      STATUS : 貸出可能
+    </div>
+
+    <button class="borrow">
+      借用申請
+    </button>
+
+  </div>
+
+  <!-- 在庫切れ -->
+
+  <div class="item out">
+
+    <div class="name">
+      安心感
+    </div>
+
+    <div class="detail">
+      現在在庫切れ。<br>
+      次回入荷時期未定。
+    </div>
+
+    <div class="status">
+      STATUS : 貸出停止中
+    </div>
+
+  </div>
+
+  <!-- 高揚感 -->
+
+  <div class="item">
+
+    <div class="name">
+      祭日用高揚感情
+    </div>
+
+    <div class="detail">
+      人混み環境向け。<br>
+      使用後に軽度虚無感報告あり。
+    </div>
+
+    <div class="status">
+      STATUS : 試験運用中
+    </div>
+
+    <button class="borrow">
+      借用申請
+    </button>
+
+  </div>
+
+</div>
+
+<a class="back" href="index.html">
+← 保護室へ戻る
+</a>
+
+</div>
+
+<div class="footer">
+EMOTION RENTAL ROOM
+</div>
+
+</body>
+</html>
