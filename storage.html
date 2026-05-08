@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>未返却一覧</title>
+
+<meta name="description" content="夜間感情保護室 未返却感情保管ページ">
+
+<style>
+
+body{
+  margin:0;
+
+  background:
+    radial-gradient(circle at top,
+    #151d28 0%,
+    #090c11 50%,
+    #040506 100%);
+
+  color:#d8dde3;
+  font-family:"Yu Gothic UI",sans-serif;
+
+  overflow:hidden;
+}
+
+/* ノイズ */
+
+.noise{
+  position:fixed;
+  inset:0;
+
+  opacity:0.04;
+
+  pointer-events:none;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.05) 0px,
+      rgba(255,255,255,0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+/* コンテナ */
+
+.container{
+  position:relative;
+  z-index:2;
+
+  max-width:720px;
+
+  margin:auto;
+
+  padding:70px 25px;
+}
+
+/* タイトル */
+
+h1{
+  font-weight:500;
+
+  letter-spacing:0.16em;
+
+  margin-bottom:18px;
+}
+
+/* 説明 */
+
+.subtitle{
+  opacity:0.58;
+
+  line-height:2;
+
+  margin-bottom:45px;
+
+  font-size:0.92rem;
+}
+
+/* 保管ボックス */
+
+.storage{
+  display:flex;
+  flex-direction:column;
+
+  gap:18px;
+}
+
+/* 感情カード */
+
+.item{
+  background:rgba(255,255,255,0.03);
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  padding:18px;
+
+  transition:0.4s;
+
+  backdrop-filter:blur(4px);
+}
+
+.item:hover{
+  background:rgba(255,255,255,0.06);
+
+  transform:translateX(4px);
+}
+
+/* 名前 */
+
+.name{
+  font-size:1rem;
+
+  margin-bottom:8px;
+
+  opacity:0.88;
+
+  letter-spacing:0.05em;
+}
+
+/* 詳細 */
+
+.detail{
+  font-size:0.84rem;
+
+  opacity:0.5;
+
+  line-height:1.8;
+}
+
+/* ステータス */
+
+.status{
+  margin-top:10px;
+
+  font-size:0.74rem;
+
+  opacity:0.35;
+
+  letter-spacing:0.08em;
+}
+
+/* 戻る */
+
+.back{
+  display:inline-block;
+
+  margin-top:45px;
+
+  color:#9fb4c9;
+
+  text-decoration:none;
+
+  opacity:0.7;
+}
+
+.back:hover{
+  opacity:1;
+}
+
+/* フッター */
+
+.footer{
+  position:fixed;
+
+  bottom:18px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  font-size:0.7rem;
+
+  opacity:0.2;
+
+  letter-spacing:0.14em;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<div class="container">
+
+<h1>
+未返却一覧
+</h1>
+
+<div class="subtitle">
+長期間返却されなかった感情を保管しています。<br>
+一部の感情は所有者不明となっています。
+</div>
+
+<div class="storage">
+
+  <div class="item">
+
+    <div class="name">
+      眠れなさ
+    </div>
+
+    <div class="detail">
+      深夜帯に複数回保護。<br>
+      明け方付近で活性化傾向あり。
+    </div>
+
+    <div class="status">
+      STATUS : 未返却
+    </div>
+
+  </div>
+
+  <div class="item">
+
+    <div class="name">
+      帰宅拒否感情
+    </div>
+
+    <div class="detail">
+      「帰りたくない」という発言と共に回収。<br>
+      雨天時に再発傾向。
+    </div>
+
+    <div class="status">
+      STATUS : 長期保管
+    </div>
+
+  </div>
+
+  <div class="item">
+
+    <div class="name">
+      深夜の万能感
+    </div>
+
+    <div class="detail">
+      午前2時〜4時に急増。<br>
+      日の出後、急速に消失。
+    </div>
+
+    <div class="status">
+      STATUS : 不安定
+    </div>
+
+  </div>
+
+  <div class="item">
+
+    <div class="name">
+      未送信メッセージ由来感情
+    </div>
+
+    <div class="detail">
+      削除済み文章から回収。<br>
+      内容復元不可。
+    </div>
+
+    <div class="status">
+      STATUS : 返却不能
+    </div>
+
+  </div>
+
+  <div class="item">
+
+    <div class="name">
+      午前二時の寂しさ
+    </div>
+
+    <div class="detail">
+      原因不明。<br>
+      静かな場所でのみ観測される。
+    </div>
+
+    <div class="status">
+      STATUS : 観測継続中
+    </div>
+
+  </div>
+
+</div>
+
+<a class="back" href="index.html">
+← 保護室へ戻る
+</a>
+
+</div>
+
+<div class="footer">
+UNRETURNED EMOTION STORAGE
+</div>
+
+</body>
+</html>
